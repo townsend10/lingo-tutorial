@@ -1,0 +1,4 @@
+7:24
+
+arquivos a ver : 
+queries - drizzle ver pq n ta pegando com o env
