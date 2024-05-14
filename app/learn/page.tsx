@@ -13,14 +13,13 @@ import { Header } from "./_components/header";
 import { Unit } from "./_components/unit";
 
 const LearnPage = async () => {
-  const userProgressData = getUserProgress(); // userProgress de usuario logueado
-  const courseProgressData = getCourseProgress(); // activeLesson: firstUncompletedLesson,activeLessonId: firstUncompletedLesson?.id,
-  const lessonPercentageData = getLessonPercentage(); // porcentaje de desafíos completados en una lección activa.
+  const userProgressData = getUserProgress();
+  const courseProgressData = getCourseProgress();
+  const lessonPercentageData = getLessonPercentage();
   const unitsData = getUnits();
 
   const [userProgress, units, courseProgress, lessonPercentage] =
     await Promise.all([
-      // Resolución de la promesa de userProgress, unitsData, courseProgressData y lessonPercentageData
       userProgressData,
       unitsData,
       courseProgressData,
