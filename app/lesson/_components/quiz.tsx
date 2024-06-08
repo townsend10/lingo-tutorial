@@ -14,11 +14,12 @@ import { Footer } from "./footer";
 import { upsertChallangeProgress } from "@/actions/challenge-progress";
 import { toast } from "sonner";
 import { reduceHearts } from "@/actions/user-progress";
-import { useAudio, useWindowSize } from "react-use";
+import { useAudio, useWindowSize, useMount } from "react-use";
 import Image from "next/image";
 import { ResultCard } from "./result-card";
 import { useRouter } from "next/navigation";
 import { useHeartsModal } from "@/store/use-hearts-modal";
+import { usePracticeModal } from "@/store/use-practice-modal";
 
 type Props = {
   initaLessonId: number;
@@ -38,6 +39,13 @@ export const Quiz = ({
   userSubscription,
 }: Props) => {
   const { open: openHeartsModal } = useHeartsModal();
+  const { open: openPracticeModal } = usePracticeModal();
+
+  useMount(() => {
+    if (initalPercentage === 100) {
+      openPracticeModal();
+    }
+  });
 
   const { width, height } = useWindowSize();
   const router = useRouter();
@@ -53,7 +61,9 @@ export const Quiz = ({
 
   //guarda estados / info
 
-  const [percentage, setPercentage] = useState(initalPercentage);
+  const [percentage, setPercentage] = useState(() => {
+    return initalPercentage === 100 ? 0 : initalPercentage;
+  });
   const [challanges, setChallenges] = useState(initalLessonChallenges);
   const [lessonId] = useState(initaLessonId);
   const [status, setStatus] = useState<"correct" | "wrong" | "none">("none");
